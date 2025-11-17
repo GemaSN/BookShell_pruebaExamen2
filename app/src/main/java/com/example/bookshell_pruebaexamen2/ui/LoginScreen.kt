@@ -1,5 +1,8 @@
 package com.example.bookshell_pruebaexamen2.ui
 
+import android.R
+import android.util.Patterns
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,6 +20,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.bookshell_pruebaexamen2.rutas.Routes
@@ -57,7 +61,7 @@ fun Body(modifier: Modifier, navController: NavHostController) {
         Spacer(modifier = Modifier.height(12.dp))
         Email(mail){mail = it}
         Spacer(modifier = Modifier.height(12.dp))
-        BotonLogin(navController, isValidEmail())
+        LoginButton(isValidEmail(mail), navController)
     }
 }
 
@@ -73,23 +77,24 @@ fun Email(email: String, onValueChange: (String) -> Unit) {
     )
 }
 
-fun isValidEmail(){
-
-}
+fun isValidEmail(email:String) =
+    Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
 @Composable
-fun BotonLogin(navController: NavHostController, x1: Unit) {
-    Button(onClick = {
-        navController.navigate(Routes.Library.route)
-    }){
-        Text("Login")
+fun LoginButton(ena:Boolean, navController:NavHostController){
+    Button(enabled = ena,
+        onClick = { navController.navigate(Routes.Library.route) }) {
+        Text("LOGIN")
     }
 }
 
 
 @Composable
 fun Logo() {
-
+//   Image(
+//        painter = painterResource(R.drawable.logo),
+//        contentDescription = "Logo"
+//    )
 }
 
 
